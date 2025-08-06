@@ -2,6 +2,7 @@ package MediChecker.MediChecker.controller;
 
 import MediChecker.MediChecker.dto.request.BenhNhanRequest;
 import MediChecker.MediChecker.dto.response.BenhNhanResponse;
+import MediChecker.MediChecker.dto.response.ChiTietBenhNhanResponse;
 import MediChecker.MediChecker.service.BenhNhanService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -33,9 +34,9 @@ public class BenhNhanController {
     
     @GetMapping("/{id}")
     @Operation(summary = "Chi tiết bệnh nhân", description = "Lấy thông tin chi tiết của một bệnh nhân")
-    public ResponseEntity<BenhNhanResponse> getChiTietBenhNhan(
+    public ResponseEntity<ChiTietBenhNhanResponse> getChiTietBenhNhan(
             @Parameter(description = "ID bệnh nhân") @PathVariable Long id) {
-        BenhNhanResponse result = benhNhanService.getChiTietBenhNhan(id);
+        ChiTietBenhNhanResponse result = benhNhanService.getChiTietBenhNhan(id);
         return ResponseEntity.ok(result);
     }
     
