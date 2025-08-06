@@ -25,10 +25,10 @@ public class DonThuocController {
     
     @GetMapping
     @Operation(summary = "Danh sách đơn thuốc", description = "Lấy danh sách tất cả đơn thuốc với phân trang")
-    public ResponseEntity<Page<DonThuocResponse>> getDanhSachDonThuoc(
+    public ResponseEntity<Page<DonThuocResponse>> getDonThuocDieuTri(
             @Parameter(description = "Thông tin phân trang") Pageable pageable,
             @Parameter(description = "ID bệnh nhân") @RequestParam(required = false) Long benhNhanId) {
-        Page<DonThuocResponse> result = donThuocService.getDanhSachDonThuoc(pageable, benhNhanId);
+        Page<DonThuocResponse> result = donThuocService.getDonThuocDieuTri(pageable, benhNhanId);
         return ResponseEntity.ok(result);
     }
     

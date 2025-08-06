@@ -1,6 +1,7 @@
 package MediChecker.MediChecker.dto.response;
 
 import MediChecker.MediChecker.entity.BenhNhan;
+import MediChecker.MediChecker.enumer.GioiTinh;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -24,7 +25,7 @@ public class BenhNhanResponse {
     private LocalDate ngaySinh;
     
     @Schema(description = "Giới tính", example = "NAM")
-    private BenhNhan.GioiTinh gioiTinh;
+    private GioiTinh gioiTinh;
     
     @Schema(description = "Số điện thoại", example = "0901234567")
     private String soDienThoai;

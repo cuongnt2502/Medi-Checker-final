@@ -1,6 +1,7 @@
 package MediChecker.MediChecker.dto.response;
 
 import MediChecker.MediChecker.entity.Thuoc;
+import MediChecker.MediChecker.enumer.NhomThuoc;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -48,7 +49,7 @@ public class ThuocResponse {
     private String chongChiDinh;
     
     @Schema(description = "Nhóm thuốc", example = "GIAM_DAU")
-    private Thuoc.NhomThuoc nhomThuoc;
+    private NhomThuoc nhomThuoc;
     
     @Schema(description = "Trạng thái kích hoạt", example = "true")
     private Boolean kichHoat;

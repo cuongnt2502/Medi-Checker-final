@@ -114,7 +114,7 @@ public class BenhNhanService {
         for (DieuTri dieuTri : dieuTris) {
             DieuTriResponse response = new DieuTriResponse();
             response.setId(dieuTri.getId());
-            response.setDanhSachDonThuoc(convertToResponseDonThuoc(dieuTri.getDanhSachDonThuoc()));
+            response.setDonThuocDieuTri(convertToResponseDonThuoc(dieuTri.getDonThuocDieuTri()));
             response.setTrieuChung(dieuTri.getTrieuChung());
             response.setBacSiDieuTri(dieuTri.getBacSiDieuTri());
             response.setChanDoanChinh(dieuTri.getChanDoanChinh());
@@ -124,26 +124,22 @@ public class BenhNhanService {
         }
         return responses;
     }
-    private List<DonThuocResponse> convertToResponseDonThuoc(List<DonThuoc> donThuocs) {
-        List<DonThuocResponse> responses = new ArrayList<>();
-        for (DonThuoc donThuoc : donThuocs) {
-            DonThuocResponse response = new DonThuocResponse();
-            response.setId(donThuoc.getId());
-            response.setMaDonThuoc(donThuoc.getMaDonThuoc());
-            response.setBacSiKeDon(donThuoc.getBacSiKeDon());
-            response.setGhiChu(donThuoc.getGhiChu());
-            response.setTrangThai(donThuoc.getTrangThai());
-            response.setNgayKeDon(donThuoc.getNgayKeDon());
+    private DonThuocResponse convertToResponseDonThuoc(DonThuoc donThuoc) {
+        DonThuocResponse response = new DonThuocResponse();
+        response.setId(donThuoc.getId());
+        response.setMaDonThuoc(donThuoc.getMaDonThuoc());
+        response.setBacSiKeDon(donThuoc.getBacSiKeDon());
+        response.setGhiChu(donThuoc.getGhiChu());
+        response.setTrangThai(donThuoc.getTrangThai());
+        response.setNgayKeDon(donThuoc.getNgayKeDon());
 
-            // Convert BenhNhan
-            BenhNhanResponse benhNhanResponse = new BenhNhanResponse();
-            benhNhanResponse.setId(donThuoc.getBenhNhan().getId());
-            benhNhanResponse.setMaBenhNhan(donThuoc.getBenhNhan().getMaBenhNhan());
-            benhNhanResponse.setHoTen(donThuoc.getBenhNhan().getHoTen());
-            response.setBenhNhan(benhNhanResponse);
-            responses.add(response);
-        }
-        return responses;
+        // Convert BenhNhan
+        BenhNhanResponse benhNhanResponse = new BenhNhanResponse();
+        benhNhanResponse.setId(donThuoc.getBenhNhan().getId());
+        benhNhanResponse.setMaBenhNhan(donThuoc.getBenhNhan().getMaBenhNhan());
+        benhNhanResponse.setHoTen(donThuoc.getBenhNhan().getHoTen());
+        response.setBenhNhan(benhNhanResponse);
+        return response;
     }
     private List<DiUngThuocRespone>  convertToResponseDiUngThuocR(List<DiUngThuoc> diUngThuocs) {
         List<DiUngThuocRespone> responses = new ArrayList<>();

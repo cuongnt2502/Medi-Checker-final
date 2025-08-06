@@ -7,7 +7,7 @@ import MediChecker.MediChecker.dto.response.ChiTietDonThuocResponse;
 import MediChecker.MediChecker.dto.response.DonThuocResponse;
 import MediChecker.MediChecker.dto.response.ThuocResponse;
 import MediChecker.MediChecker.entity.*;
-import MediChecker.MediChecker.repository.*;
+import MediChecker.MediChecker.enumer.TrangThaiDonThuoc;
 import MediChecker.MediChecker.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -31,7 +31,7 @@ public class DonThuocService {
     private final ChiTietDonThuocRepository chiTietDonThuocRepository;
     private final DieuTriRepository dieuTriRepository;
     
-    public Page<DonThuocResponse> getDanhSachDonThuoc(Pageable pageable, Long benhNhanId) {
+    public Page<DonThuocResponse> getDonThuocDieuTri(Pageable pageable, Long benhNhanId) {
         Page<DonThuoc> donThuocPage;
         
         if (benhNhanId != null) {
@@ -58,7 +58,7 @@ public class DonThuocService {
         donThuoc.setBenhNhan(benhNhan);
         donThuoc.setBacSiKeDon(request.getBacSiKeDon());
         donThuoc.setGhiChu(request.getGhiChu());
-        donThuoc.setTrangThai(DonThuoc.TrangThaiDonThuoc.MOI_TAO);
+        donThuoc.setTrangThai(TrangThaiDonThuoc.MOI_TAO);
         
         if (request.getDieuTriId() != null) {
             DieuTri dieuTri = dieuTriRepository.findById(request.getDieuTriId())
@@ -85,7 +85,7 @@ public class DonThuocService {
         DonThuoc donThuoc = donThuocRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy đơn thuốc với ID: " + id));
         
-        donThuoc.setTrangThai(DonThuoc.TrangThaiDonThuoc.HUY_BO);
+        donThuoc.setTrangThai(TrangThaiDonThuoc.HUY_BO);
         donThuocRepository.save(donThuoc);
     }
     

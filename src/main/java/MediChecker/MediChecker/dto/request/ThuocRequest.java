@@ -1,6 +1,7 @@
 package MediChecker.MediChecker.dto.request;
 
 import MediChecker.MediChecker.entity.Thuoc;
+import MediChecker.MediChecker.enumer.NhomThuoc;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
@@ -57,5 +58,5 @@ public class ThuocRequest {
     private String lieuDungTreEm;
     
     @Schema(description = "Nhóm thuốc", example = "GIAM_DAU")
-    private Thuoc.NhomThuoc nhomThuoc;
+    private NhomThuoc nhomThuoc;
 }

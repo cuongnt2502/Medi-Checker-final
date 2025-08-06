@@ -3,7 +3,7 @@ package MediChecker.MediChecker.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
-
+import MediChecker.MediChecker.enumer.MucDoNghiemTrong;
 import java.time.LocalDateTime;
 
 @Entity
@@ -36,7 +36,5 @@ public class BenhLyNen {
     @Column(name = "ngay_chan_doan")
     private LocalDateTime ngayChanDoan;
     
-    public enum MucDoNghiemTrong {
-        NHE, VUA, NANG, RAT_NANG
-    }
+
 }

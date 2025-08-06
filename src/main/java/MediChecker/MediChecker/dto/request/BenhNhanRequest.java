@@ -1,6 +1,7 @@
 package MediChecker.MediChecker.dto.request;
 
 import MediChecker.MediChecker.entity.BenhNhan;
+import MediChecker.MediChecker.enumer.GioiTinh;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.*;
 import lombok.Data;
@@ -21,7 +22,7 @@ public class BenhNhanRequest {
     private LocalDate ngaySinh;
     
     @Schema(description = "Giới tính", example = "NAM")
-    private BenhNhan.GioiTinh gioiTinh;
+    private GioiTinh gioiTinh;
     
     @Pattern(regexp = "^[0-9+\\-\\s()]{10,15}$", message = "Số điện thoại không hợp lệ")
     @Schema(description = "Số điện thoại", example = "0901234567")

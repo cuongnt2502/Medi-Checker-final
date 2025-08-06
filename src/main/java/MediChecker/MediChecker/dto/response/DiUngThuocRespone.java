@@ -1,8 +1,6 @@
 package MediChecker.MediChecker.dto.response;
 
-import MediChecker.MediChecker.entity.BenhNhan;
-import MediChecker.MediChecker.entity.DiUngThuoc;
-import MediChecker.MediChecker.entity.Thuoc;
+import MediChecker.MediChecker.enumer.MucDoNghiemTrong;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -19,11 +17,9 @@ public class DiUngThuocRespone {
 
     private String trieuChung;
 
-    private DiUngThuoc.MucDoNghiemTrong mucDoNghiemTrong;
+    private MucDoNghiemTrong mucDoNghiemTrong;
 
     private LocalDateTime ngayPhatHien;
 
-    public enum MucDoNghiemTrong {
-        NHE, VUA, NANG, NGUY_HIEM
-    }
+
 }

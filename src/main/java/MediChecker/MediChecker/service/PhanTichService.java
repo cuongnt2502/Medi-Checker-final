@@ -3,6 +3,7 @@ package MediChecker.MediChecker.service;
 import MediChecker.MediChecker.dto.response.PhanTichResponse;
 import MediChecker.MediChecker.dto.response.ThuocResponse;
 import MediChecker.MediChecker.entity.*;
+import MediChecker.MediChecker.enumer.NhomThuoc;
 import MediChecker.MediChecker.repository.BenhLyNenRepository;
 import MediChecker.MediChecker.repository.BenhNhanRepository;
 import MediChecker.MediChecker.repository.DiUngThuocRepository;
@@ -111,12 +112,12 @@ public class PhanTichService {
         response.setTrungChiDinh(new ArrayList<>());
         
         // Nhóm thuốc theo tác dụng
-        Map<Thuoc.NhomThuoc, List<Thuoc>> nhomThuocMap = donThuoc.getDanhSachThuoc().stream()
+        Map<NhomThuoc, List<Thuoc>> nhomThuocMap = donThuoc.getDanhSachThuoc().stream()
                 .map(ChiTietDonThuoc::getThuoc)
                 .collect(Collectors.groupingBy(Thuoc::getNhomThuoc));
         
         // Kiểm tra trùng lặp trong cùng nhóm
-        for (Map.Entry<Thuoc.NhomThuoc, List<Thuoc>> entry : nhomThuocMap.entrySet()) {
+        for (Map.Entry<NhomThuoc, List<Thuoc>> entry : nhomThuocMap.entrySet()) {
             if (entry.getValue().size() > 1) {
                 PhanTichResponse.TrungChiDinhWarning warning = new PhanTichResponse.TrungChiDinhWarning();
                 warning.setDanhSachThuoc(entry.getValue().stream()
@@ -179,8 +180,8 @@ public class PhanTichService {
         
         // Kiểm tra cùng nhóm thuốc có thể gây tương tác
         if (thuoc1.getNhomThuoc() == thuoc2.getNhomThuoc() && 
-            (thuoc1.getNhomThuoc() == Thuoc.NhomThuoc.KHANG_SINH || 
-             thuoc1.getNhomThuoc() == Thuoc.NhomThuoc.TIM_MACH)) {
+            (thuoc1.getNhomThuoc() == NhomThuoc.KHANG_SINH ||
+             thuoc1.getNhomThuoc() == NhomThuoc.TIM_MACH)) {
             return "Có thể có tương tác khi dùng đồng thời các thuốc cùng nhóm";
         }
         

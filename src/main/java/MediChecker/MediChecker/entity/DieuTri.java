@@ -1,5 +1,6 @@
 package MediChecker.MediChecker.entity;
 
+import MediChecker.MediChecker.enumer.TrangThaiDieuTri;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
@@ -50,11 +51,9 @@ public class DieuTri {
     @UpdateTimestamp
     @Column(name = "ngay_cap_nhat")
     private LocalDateTime ngayCapNhat;
+
+    @OneToOne(mappedBy = "dieuTri", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private DonThuoc DonThuocDieuTri;
     
-    @OneToMany(mappedBy = "dieuTri", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<DonThuoc> danhSachDonThuoc;
-    
-    public enum TrangThaiDieuTri {
-        DANG_DIEU_TRI, HOAN_THANH, TAM_DUNG, HUY_BO
-    }
+
 }

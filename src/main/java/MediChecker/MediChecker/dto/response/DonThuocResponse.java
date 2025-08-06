@@ -1,6 +1,7 @@
 package MediChecker.MediChecker.dto.response;
 
 import MediChecker.MediChecker.entity.DonThuoc;
+import MediChecker.MediChecker.enumer.TrangThaiDonThuoc;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -27,7 +28,7 @@ public class DonThuocResponse {
     private String ghiChu;
     
     @Schema(description = "Trạng thái đơn thuốc", example = "DA_DUYET")
-    private DonThuoc.TrangThaiDonThuoc trangThai;
+    private TrangThaiDonThuoc trangThai;
     
     @Schema(description = "Ngày kê đơn", example = "2024-01-15T10:30:00")
     private LocalDateTime ngayKeDon;

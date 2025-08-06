@@ -4,6 +4,7 @@ import MediChecker.MediChecker.entity.BenhLyNen;
 import MediChecker.MediChecker.entity.BenhNhan;
 import MediChecker.MediChecker.entity.DiUngThuoc;
 import MediChecker.MediChecker.entity.DieuTri;
+import MediChecker.MediChecker.enumer.GioiTinh;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.FetchType;
@@ -31,7 +32,7 @@ public class ChiTietBenhNhanResponse {
     private LocalDate ngaySinh;
 
     @Schema(description = "Giới tính", example = "NAM")
-    private BenhNhan.GioiTinh gioiTinh;
+    private GioiTinh gioiTinh;
 
     @Schema(description = "Số điện thoại", example = "0901234567")
     private String soDienThoai;

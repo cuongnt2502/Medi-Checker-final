@@ -1,5 +1,6 @@
 package MediChecker.MediChecker.entity;
 
+import MediChecker.MediChecker.enumer.NhomThuoc;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
@@ -78,7 +79,5 @@ public class Thuoc {
     @OneToMany(mappedBy = "thuoc", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<DiUngThuoc> danhSachDiUng;
     
-    public enum NhomThuoc {
-        KHANG_SINH, GIAM_DAU, CHONG_VIEM, TIM_MACH, TIEU_HOA, HOI_SUC, KHAC
-    }
+
 }

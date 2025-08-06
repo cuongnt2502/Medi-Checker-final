@@ -3,6 +3,7 @@ package MediChecker.MediChecker.dto.response;
 import MediChecker.MediChecker.entity.BenhNhan;
 import MediChecker.MediChecker.entity.DieuTri;
 import MediChecker.MediChecker.entity.DonThuoc;
+import MediChecker.MediChecker.enumer.TrangThaiDieuTri;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -27,7 +28,7 @@ public class DieuTriResponse {
 
     private String bacSiDieuTri;
 
-    private DieuTri.TrangThaiDieuTri trangThai;
+    private TrangThaiDieuTri trangThai;
 
     private LocalDateTime ngayBatDau;
 
@@ -35,9 +36,7 @@ public class DieuTriResponse {
 
     private LocalDateTime ngayCapNhat;
 
-    private List<DonThuocResponse> danhSachDonThuoc;
+    private DonThuocResponse DonThuocDieuTri;
 
-    public enum TrangThaiDieuTri {
-        DANG_DIEU_TRI, HOAN_THANH, TAM_DUNG, HUY_BO
-    }
+
 }

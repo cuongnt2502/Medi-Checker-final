@@ -1,5 +1,6 @@
 package MediChecker.MediChecker.entity;
 
+import MediChecker.MediChecker.enumer.GioiTinh;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -63,7 +64,5 @@ public class BenhNhan {
     @OneToMany(mappedBy = "benhNhan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<DieuTri> danhSachDieuTri;
     
-    public enum GioiTinh {
-        NAM, NU, KHAC
-    }
+
 }

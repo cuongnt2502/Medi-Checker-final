@@ -1,5 +1,6 @@
 package MediChecker.MediChecker.entity;
 
+import MediChecker.MediChecker.enumer.MucDoNghiemTrong;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
@@ -34,7 +35,5 @@ public class DiUngThuoc {
     @Column(name = "ngay_phat_hien")
     private LocalDateTime ngayPhatHien;
     
-    public enum MucDoNghiemTrong {
-        NHE, VUA, NANG, NGUY_HIEM
-    }
+
 }
