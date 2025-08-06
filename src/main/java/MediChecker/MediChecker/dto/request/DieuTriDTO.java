@@ -1,5 +1,6 @@
 package MediChecker.MediChecker.dto.request;
 
+import MediChecker.MediChecker.dto.response.DonThuocResponse;
 import lombok.Data;
 import jakarta.validation.constraints.*;
 import java.time.LocalDateTime;
@@ -27,10 +28,11 @@ public class DieuTriDTO {
     
     @Size(max = 100, message = "Bác sĩ điều trị không được vượt quá 100 ký tự")
     private String bacSiDieuTri;
-    
+
     private TrangThaiDieuTri trangThai;
     private LocalDateTime ngayBatDau;
     private LocalDateTime ngayKetThuc;
     private LocalDateTime ngayCapNhat;
+    private DonThuocRequest DonThuocDieuTri;
 
 }

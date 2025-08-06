@@ -107,6 +107,7 @@ public class BenhNhanService {
         response.setDanhSachBenhLyNen(convertToResponseBenhlyNen(benhNhan.getDanhSachBenhLyNen()));
         response.setDanhSachDiUng(convertToResponseDiUngThuocR(benhNhan.getDanhSachDiUng()));
         response.setDanhSachDieuTri(convertToResponseDieuTri(benhNhan.getDanhSachDieuTri()));
+
         return response;
     }
     private List<DieuTriResponse>  convertToResponseDieuTri(List<DieuTri> dieuTris) {
@@ -133,14 +134,27 @@ public class BenhNhanService {
         response.setTrangThai(donThuoc.getTrangThai());
         response.setNgayKeDon(donThuoc.getNgayKeDon());
 
-        // Convert BenhNhan
-        BenhNhanResponse benhNhanResponse = new BenhNhanResponse();
-        benhNhanResponse.setId(donThuoc.getBenhNhan().getId());
-        benhNhanResponse.setMaBenhNhan(donThuoc.getBenhNhan().getMaBenhNhan());
-        benhNhanResponse.setHoTen(donThuoc.getBenhNhan().getHoTen());
-        response.setBenhNhan(benhNhanResponse);
+        List<ChiTietDonThuocResponse> danhSachThuoc = new ArrayList<>();
+        for (ChiTietDonThuoc chiTietDonThuoc : donThuoc.getDanhSachThuoc()) {
+            ChiTietDonThuocResponse item = new ChiTietDonThuocResponse();
+
+            item.setThuoc(convertToResponseThuoc(chiTietDonThuoc.getThuoc()));
+            item.setId(chiTietDonThuoc.getId());
+            item.setSoLuong(chiTietDonThuoc.getSoLuong());
+            item.setLieuDung(chiTietDonThuoc.getLieuDung());
+            item.setDuongDung(chiTietDonThuoc.getDuongDung());
+            item.setTanSuat(chiTietDonThuoc.getTanSuat());
+            item.setThoiGianDung(chiTietDonThuoc.getThoiGianDung());
+            item.setGiaDonVi(chiTietDonThuoc.getGiaDonVi());
+            item.setThanhTien(chiTietDonThuoc.getThanhTien());
+            item.setHuongDanSuDung(chiTietDonThuoc.getHuongDanSuDung());
+
+            danhSachThuoc.add(item);
+        }
+        response.setDanhSachThuoc(danhSachThuoc);
         return response;
     }
+
     private List<DiUngThuocRespone>  convertToResponseDiUngThuocR(List<DiUngThuoc> diUngThuocs) {
         List<DiUngThuocRespone> responses = new ArrayList<>();
         for (DiUngThuoc diUngThuoc : diUngThuocs) {

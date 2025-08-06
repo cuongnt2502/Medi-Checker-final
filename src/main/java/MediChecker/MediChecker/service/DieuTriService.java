@@ -1,11 +1,10 @@
 package MediChecker.MediChecker.service;
 
+import MediChecker.MediChecker.dto.request.ChiTietDonThuocRequest;
 import MediChecker.MediChecker.dto.request.DieuTriDTO;
-import MediChecker.MediChecker.entity.BenhNhan;
-import MediChecker.MediChecker.entity.DieuTri;
+import MediChecker.MediChecker.entity.*;
 import MediChecker.MediChecker.enumer.TrangThaiDieuTri;
-import MediChecker.MediChecker.repository.BenhNhanRepository;
-import MediChecker.MediChecker.repository.DieuTriRepository;
+import MediChecker.MediChecker.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,8 +20,11 @@ import java.util.List;
 public class DieuTriService {
     
     private final DieuTriRepository dieuTriRepository;
+    private final DonThuocRepository donThuocRepository;
+    private final ChiTietDonThuocRepository chiTietDonThuocRepository;
     private final BenhNhanRepository benhNhanRepository;
-    
+    private final ThuocRepository thuocRepository;
+
     public DieuTriDTO create(DieuTriDTO dto) {
         // Kiểm tra bệnh nhân tồn tại
         BenhNhan benhNhan = benhNhanRepository.findById(dto.getBenhNhanId())
@@ -37,8 +39,38 @@ public class DieuTriService {
         dieuTri.setBacSiDieuTri(dto.getBacSiDieuTri());
         dieuTri.setTrangThai(dto.getTrangThai() != null ? dto.getTrangThai() : TrangThaiDieuTri.DANG_DIEU_TRI);
         dieuTri.setNgayKetThuc(dto.getNgayKetThuc());
-        
         DieuTri saved = dieuTriRepository.save(dieuTri);
+
+        DonThuoc donThuoc= new DonThuoc();
+        donThuoc.setMaDonThuoc(dto.getDonThuocDieuTri().getMaDonThuoc());
+        donThuoc.setDieuTri(dieuTri);
+        donThuoc.setBenhNhan(benhNhan);
+        donThuoc.setBacSiKeDon(dto.getDonThuocDieuTri().getBacSiKeDon());
+        donThuoc.setGhiChu(dto.getDonThuocDieuTri().getGhiChu());
+        donThuoc.setTrangThai(dto.getDonThuocDieuTri().getTrangThai());
+        DonThuoc saveddonThuoc = donThuocRepository.save(donThuoc);
+
+        List<ChiTietDonThuocRequest> danhSachDonThuoc = dto.getDonThuocDieuTri().getDanhSachThuoc();
+        for (ChiTietDonThuocRequest item : danhSachDonThuoc) {
+
+            Thuoc thuoc = thuocRepository.findById(item.getThuocId())
+                    .orElseThrow(() ->new RuntimeException("Không tìm thấy thuôc với ID: " + item.getThuocId()) );
+            ChiTietDonThuoc chiTietDonThuoc= new ChiTietDonThuoc();
+
+            chiTietDonThuoc.setDonThuoc(saveddonThuoc);
+            chiTietDonThuoc.setThuoc(thuoc);
+            chiTietDonThuoc.setSoLuong(item.getSoLuong());
+            chiTietDonThuoc.setLieuDung(item.getLieuDung());
+            chiTietDonThuoc.setDuongDung(item.getDuongDung());
+            chiTietDonThuoc.setTanSuat(item.getTanSuat());
+            chiTietDonThuoc.setThoiGianDung(item.getThoiGianDung());
+            chiTietDonThuoc.setHuongDanSuDung(item.getHuongDanSuDung());
+            chiTietDonThuoc.setGiaDonVi(item.getGiaDonVi());
+            chiTietDonThuoc.setThanhTien(item.getThanhTien());
+            ChiTietDonThuoc saveddonChiTietDonThuoc = chiTietDonThuocRepository.save(chiTietDonThuoc);
+        }
+
+
         return convertToDTO(saved);
     }
     
@@ -87,8 +119,54 @@ public class DieuTriService {
         existing.setBacSiDieuTri(dto.getBacSiDieuTri());
         existing.setTrangThai(dto.getTrangThai());
         existing.setNgayKetThuc(dto.getNgayKetThuc());
-        
         DieuTri updated = dieuTriRepository.save(existing);
+
+        DonThuoc existingDonThuoc = donThuocRepository.findById(existing.getDonThuocDieuTri().getId()).orElse(null);;
+
+        existingDonThuoc.setBacSiKeDon(dto.getDonThuocDieuTri().getBacSiKeDon());
+        existingDonThuoc.setGhiChu(dto.getDonThuocDieuTri().getGhiChu());
+        existingDonThuoc.setTrangThai(dto.getDonThuocDieuTri().getTrangThai());
+        DonThuoc saveddonThuoc = donThuocRepository.save(existingDonThuoc);
+
+        List<ChiTietDonThuocRequest> danhSachDonThuoc = dto.getDonThuocDieuTri().getDanhSachThuoc();
+        for (ChiTietDonThuocRequest item : danhSachDonThuoc) {
+            Thuoc thuoc = thuocRepository.findById(item.getThuocId())
+                    .orElseThrow(() ->new RuntimeException("Không tìm thấy thuôc với ID: " + item.getThuocId()) );
+            if (existing.getDonThuocDieuTri().getId() != 0)
+            {
+                ChiTietDonThuoc existingChiTietDonThuoc = chiTietDonThuocRepository.findById(existing.getDonThuocDieuTri().getId()).orElse(null);;
+
+
+                existingChiTietDonThuoc.setDonThuoc(saveddonThuoc);
+                existingChiTietDonThuoc.setThuoc(thuoc);
+                existingChiTietDonThuoc.setSoLuong(item.getSoLuong());
+                existingChiTietDonThuoc.setLieuDung(item.getLieuDung());
+                existingChiTietDonThuoc.setDuongDung(item.getDuongDung());
+                existingChiTietDonThuoc.setTanSuat(item.getTanSuat());
+                existingChiTietDonThuoc.setThoiGianDung(item.getThoiGianDung());
+                existingChiTietDonThuoc.setHuongDanSuDung(item.getHuongDanSuDung());
+                existingChiTietDonThuoc.setGiaDonVi(item.getGiaDonVi());
+                existingChiTietDonThuoc.setThanhTien(item.getThanhTien());
+                ChiTietDonThuoc saveddonChiTietDonThuoc = chiTietDonThuocRepository.save(existingChiTietDonThuoc);
+            }
+            else {
+                ChiTietDonThuoc chiTietDonThuoc= new ChiTietDonThuoc();
+
+                chiTietDonThuoc.setDonThuoc(saveddonThuoc);
+                chiTietDonThuoc.setThuoc(thuoc);
+                chiTietDonThuoc.setSoLuong(item.getSoLuong());
+                chiTietDonThuoc.setLieuDung(item.getLieuDung());
+                chiTietDonThuoc.setDuongDung(item.getDuongDung());
+                chiTietDonThuoc.setTanSuat(item.getTanSuat());
+                chiTietDonThuoc.setThoiGianDung(item.getThoiGianDung());
+                chiTietDonThuoc.setHuongDanSuDung(item.getHuongDanSuDung());
+                chiTietDonThuoc.setGiaDonVi(item.getGiaDonVi());
+                chiTietDonThuoc.setThanhTien(item.getThanhTien());
+                ChiTietDonThuoc saveddonChiTietDonThuoc = chiTietDonThuocRepository.save(chiTietDonThuoc);
+            }
+
+        }
+
         return convertToDTO(updated);
     }
     

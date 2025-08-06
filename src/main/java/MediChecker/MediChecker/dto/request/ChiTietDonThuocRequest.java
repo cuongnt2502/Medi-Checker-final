@@ -1,11 +1,14 @@
 package MediChecker.MediChecker.dto.request;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+
+import java.math.BigDecimal;
 
 @Data
 @Schema(description = "Thông tin thuốc trong đơn")
@@ -40,4 +43,8 @@ public class ChiTietDonThuocRequest {
     @Size(max = 500, message = "Hướng dẫn sử dụng không được vượt quá 500 ký tự")
     @Schema(description = "Hướng dẫn sử dụng", example = "Uống sau ăn 30 phút")
     private String huongDanSuDung;
+
+    private BigDecimal giaDonVi;
+
+    private BigDecimal thanhTien;
 }
