@@ -15,6 +15,8 @@ public class DonThuocItem {
 
     @Column(name = "lieu_luong", nullable = false, length = 20)
     private String lieuLuong;
-
+    @ManyToOne
+    @JoinColumn(name = "lich_su_dieu_tri_id")  // hoặc tên cột FK tương ứng
+    private LichSuDieuTri lichSuDieuTri;
 
 }
