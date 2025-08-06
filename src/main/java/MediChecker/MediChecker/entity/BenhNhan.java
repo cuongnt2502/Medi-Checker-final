@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name = "benh_nhan")
+@Table(name = "benh_nhan", schema = "public")
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class BenhNhan {

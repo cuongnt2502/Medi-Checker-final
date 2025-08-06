@@ -23,7 +23,7 @@ public class SwaggerConfig {
                                 .name("Hospital Management Team")
                                 .email("support@hospital.com")))
                 .servers(List.of(
-                        new Server().url("http://localhost:8080/api").description("Development Server")
+                        new Server().url("http://localhost:8080").description("Development Server")
                 ));
     }
 }
