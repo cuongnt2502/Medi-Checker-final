@@ -25,7 +25,7 @@ public class SwaggerConfig {
                                 .name("Hospital Management Team")
                                 .email("support@hospital.com")))
                 .servers(List.of(
-                        new Server().url("http://localhost:"+swaggerServerUrl+"/").description("Development Server")
+                        new Server().url("http://10.136.83.51:"+swaggerServerUrl+"/").description("Development Server")
                 ));
     }
 }
